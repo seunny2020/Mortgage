@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mortgage Calculator</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #calculator {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: large;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="calculator">
+    <h2>Mortgage Calculator</h2>
+    <label for="loanAmount">Loan Amount:</label>
+    <input type="number" id="loanAmount" placeholder="Enter loan amount" required>
+
+    <label for="interestRate">Interest Rate (%):</label>
+    <input type="number" id="interestRate" placeholder="Enter interest rate" required>
+
+    <label for="loanTerm">Loan Term (years):</label>
+    <input type="number" id="loanTerm" placeholder="Enter loan term" required>
+
+    <button onclick="calculateMortgage()">Calculate</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateMortgage() {
+      const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+      const interestRate = parseFloat(document.getElementById('interestRate').value);
+      const loanTerm = parseFloat(document.getElementById('loanTerm').value);
+
+      const monthlyInterestRate = interestRate / 100 / 12;
+      const numberOfPayments = loanTerm * 12;
+
+      const numerator = monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments);
+      const denominator = Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1;
+
+      const monthlyPayment = (loanAmount * (numerator / denominator)).toFixed(2);
+
+      document.getElementById('result').innerHTML = `Your monthly mortgage payment is: $${monthlyPayment}`;
+    }
+  </script>
+
+</body>
+</html>
+ 
